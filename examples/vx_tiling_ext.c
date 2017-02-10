@@ -363,3 +363,28 @@ VX_API_ENTRY vx_status VX_API_CALL vxPublishKernels(vx_context context)
     /*! [publish_function] */
     return status;
 }
+
+VX_API_ENTRY vx_status VX_API_CALL vxUnpublishKernels(vx_context context)
+{
+    vx_status status = VX_SUCCESS;
+    vx_uint32 k = 0;
+    vx_kernel kernel, kernelcpy;
+
+    for (k = 0; k < dimof(tiling_kernels); k++){
+        kernel = vxGetKernelByName(context, tiling_kernels[k].name);
+        kernelcpy = kernel;
+    }
+
+    if (kernel)
+    {
+        status = vxReleaseKernel(&kernelcpy);
+        /*
+        if (status == VX_SUCCESS)
+        {
+            status = vxRemoveKernel(kernel);
+            printf("%s remove status %d\n", __func__, status);
+        }
+        */
+    }
+    return status;
+}

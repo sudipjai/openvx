@@ -784,7 +784,7 @@ VX_API_ENTRY vx_kernel VX_API_CALL vxGetKernelByName(vx_context context, const v
  * \pre <tt>\ref vxLoadKernels</tt> if the kernel is not provided by the
  * OpenVX implementation.
  */
-VX_API_ENTRY vx_kernel VX_API_CALL vxGetKernelByEnum(vx_context context, vx_enum kernel);
+VX_API_ENTRY vx_kernel VX_API_CALL vxGetKernelByEnum(vx_context context, vx_enum kernel_);
 
 /*! \brief This allows the client to query the kernel to get information about
  * the number of parameters, enum values, etc.
@@ -799,7 +799,7 @@ VX_API_ENTRY vx_kernel VX_API_CALL vxGetKernelByEnum(vx_context context, vx_enum
  * \retval VX_ERROR_NOT_SUPPORTED If the attribute value is not supported in this implementation.
  * \ingroup group_kernel
  */
-VX_API_ENTRY vx_status VX_API_CALL vxQueryKernel(vx_kernel kernel, vx_enum attribute, void *ptr, vx_size size);
+VX_API_ENTRY vx_status VX_API_CALL vxQueryKernel(vx_kernel kernel_, vx_enum attribute, void *ptr, vx_size size);
 
 /*! \brief Release the reference to the kernel.
  * The object may not be garbage collected until its total reference count is zero.
@@ -810,7 +810,7 @@ VX_API_ENTRY vx_status VX_API_CALL vxQueryKernel(vx_kernel kernel, vx_enum attri
  * \retval VX_ERROR_INVALID_REFERENCE If kernel is not a <tt>\ref vx_kernel</tt>.
  * \ingroup group_kernel
  */
-VX_API_ENTRY vx_status VX_API_CALL vxReleaseKernel(vx_kernel *kernel);
+VX_API_ENTRY vx_status VX_API_CALL vxReleaseKernel(vx_kernel *kernel_);
 
 /*! \brief Allows users to add custom kernels to the known kernel
  * database in OpenVX at run-time. This would primarily be used by the module function
@@ -849,7 +849,7 @@ VX_API_ENTRY vx_kernel VX_API_CALL vxAddUserKernel(vx_context context,
  * \pre <tt>\ref vxAddUserKernel</tt> and <tt>\ref vxAddParameterToKernel</tt>
  * \ingroup group_user_kernels
  */
-VX_API_ENTRY vx_status VX_API_CALL vxFinalizeKernel(vx_kernel kernel);
+VX_API_ENTRY vx_status VX_API_CALL vxFinalizeKernel(vx_kernel kernel_);
 
 /*! \brief Allows users to set the signatures of the custom kernel.
  * \param [in] kernel The reference to the kernel added with <tt>\ref vxAddUserKernel</tt>.
@@ -864,7 +864,7 @@ VX_API_ENTRY vx_status VX_API_CALL vxFinalizeKernel(vx_kernel kernel);
  * \pre <tt>\ref vxAddUserKernel</tt>
  * \ingroup group_user_kernels
  */
-VX_API_ENTRY vx_status VX_API_CALL vxAddParameterToKernel(vx_kernel kernel, vx_uint32 index, vx_enum dir, vx_enum data_type, vx_enum state);
+VX_API_ENTRY vx_status VX_API_CALL vxAddParameterToKernel(vx_kernel kernel_, vx_uint32 index, vx_enum dir, vx_enum data_type, vx_enum state);
 
 /*! \brief Removes a <tt>\ref vx_kernel</tt> from the <tt>\ref vx_context</tt> 
  * and releases it. 
@@ -882,7 +882,7 @@ VX_API_ENTRY vx_status VX_API_CALL vxAddParameterToKernel(vx_kernel kernel, vx_u
  * has nodes that is using this kernel.
  * \ingroup group_user_kernels
  */
-VX_API_ENTRY vx_status VX_API_CALL vxRemoveKernel(vx_kernel kernel);
+VX_API_ENTRY vx_status VX_API_CALL vxRemoveKernel(vx_kernel kernel_);
 
 /*! \brief Sets kernel attributes.
  * \param [in] kernel The reference to the kernel.
@@ -894,7 +894,7 @@ VX_API_ENTRY vx_status VX_API_CALL vxRemoveKernel(vx_kernel kernel);
  * \return A <tt>\ref vx_status_e</tt> enumeration.
  * \ingroup group_user_kernels
  */
-VX_API_ENTRY vx_status VX_API_CALL vxSetKernelAttribute(vx_kernel kernel, vx_enum attribute, const void *ptr, vx_size size);
+VX_API_ENTRY vx_status VX_API_CALL vxSetKernelAttribute(vx_kernel kernel_, vx_enum attribute, const void *ptr, vx_size size);
 
 /*! \brief Retrieves a <tt>\ref vx_parameter</tt> from a <tt>\ref vx_kernel</tt>.
  * \param [in] kernel The reference to the kernel.
@@ -905,7 +905,7 @@ VX_API_ENTRY vx_status VX_API_CALL vxSetKernelAttribute(vx_kernel kernel, vx_enu
  * \retval * The parameter reference.
  * \ingroup group_parameter
  */
-VX_API_ENTRY vx_parameter VX_API_CALL vxGetKernelParameterByIndex(vx_kernel kernel, vx_uint32 index);
+VX_API_ENTRY vx_parameter VX_API_CALL vxGetKernelParameterByIndex(vx_kernel kernel_, vx_uint32 index);
 
 /*==============================================================================
  GRAPH
@@ -1087,7 +1087,7 @@ VX_API_ENTRY vx_bool VX_API_CALL vxIsGraphVerified(vx_graph graph);
  * \ingroup group_adv_node
  * \post Call <tt>\ref vxSetParameterByIndex</tt> for as many parameters as needed to be set.
  */
-VX_API_ENTRY vx_node VX_API_CALL vxCreateGenericNode(vx_graph graph, vx_kernel kernel);
+VX_API_ENTRY vx_node VX_API_CALL vxCreateGenericNode(vx_graph graph, vx_kernel kernel_);
 
 /*! \brief Allows a user to query information out of a node.
  * \param [in] node The reference to the node to query.

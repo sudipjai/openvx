@@ -424,8 +424,8 @@ vx_status VX_CALLBACK vxTilingKernel(vx_node node, vx_reference parameters[], vx
         //printf("Tiling Kernel Parameter[%u] dir:%d type:0%08x\n", p, dirs[p], types[p]);
         if (types[p] == VX_TYPE_IMAGE)
         {
-            vxQueryNode(node, VX_NODE_OUTPUT_TILE_BLOCK_SIZE, &tiles[p].tile_block, sizeof(vx_tile_block_size_t));
-            vxQueryNode(node, VX_NODE_INPUT_NEIGHBORHOOD, &tiles[p].neighborhood, sizeof(vx_neighborhood_size_t));
+            vxQueryNode(node, VX_NODE_ATTRIBUTE_OUTPUT_TILE_BLOCK_SIZE, &tiles[p].tile_block, sizeof(vx_tile_block_size_t));
+            vxQueryNode(node, VX_NODE_ATTRIBUTE_INPUT_NEIGHBORHOOD, &tiles[p].neighborhood, sizeof(vx_neighborhood_size_t));
             ownPrintImage((vx_image_t *)parameters[p]);
             images[p] = (vx_image)parameters[p];
             vxQueryImage(images[p], VX_IMAGE_WIDTH, &tiles[p].image.width, sizeof(vx_uint32));
@@ -454,8 +454,8 @@ vx_status VX_CALLBACK vxTilingKernel(vx_node node, vx_reference parameters[], vx
     status |= vxQueryImage(images[index], VX_IMAGE_WIDTH, &width, sizeof(width));
     status |= vxQueryImage(images[index], VX_IMAGE_HEIGHT, &height, sizeof(height));
     status |= vxQueryNode(node, VX_NODE_BORDER, &borders, sizeof(borders));
-    status |= vxQueryNode(node, VX_NODE_INPUT_NEIGHBORHOOD, &nbhd, sizeof(nbhd));
-    status |= vxQueryNode(node, VX_NODE_TILE_MEMORY_SIZE, &size, sizeof(size));
+    status |= vxQueryNode(node, VX_NODE_ATTRIBUTE_INPUT_NEIGHBORHOOD, &nbhd, sizeof(nbhd));
+    status |= vxQueryNode(node, VX_NODE_ATTRIBUTE_TILE_MEMORY_SIZE, &size, sizeof(size));
 
 #if 0
     tile_size_y = (height - (nbhd.y[1] + abs(nbhd.y[0]))) / block_multiple;
@@ -498,8 +498,8 @@ vx_status VX_CALLBACK vxTilingKernel(vx_node node, vx_reference parameters[], vx
             }
             if (status == VX_SUCCESS)
             {
-                //printf("Calling Tile{%u,%u} with %s\n", tx, ty, ((vx_node_t *)node)->kernel->name);
-                vxQueryNode(node, VX_NODE_TILE_MEMORY_PTR, &tile_memory, sizeof(void *));
+                printf("Calling Tile{%u,%u} with %s\n", tx, ty, ((vx_node_t *)node)->kernel->name);
+                vxQueryNode(node, VX_NODE_ATTRIBUTE_TILE_MEMORY_PTR, &tile_memory, sizeof(void *));
                 ((vx_node_t *)node)->kernel->tiling_function(params, tile_memory, size);
             }
             else

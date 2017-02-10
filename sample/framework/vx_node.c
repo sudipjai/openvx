@@ -198,7 +198,7 @@ VX_API_ENTRY vx_status VX_API_CALL vxQueryNode(vx_node n, vx_enum attribute, voi
                 }
                 break;
 #ifdef OPENVX_KHR_TILING
-            case VX_NODE_INPUT_NEIGHBORHOOD:
+            case VX_NODE_ATTRIBUTE_INPUT_NEIGHBORHOOD:
                 if (VX_CHECK_PARAM(ptr, size, vx_neighborhood_size_t, 0x3))
                 {
                     memcpy(ptr, &node->kernel->attributes.nhbdinfo, size);
@@ -208,7 +208,7 @@ VX_API_ENTRY vx_status VX_API_CALL vxQueryNode(vx_node n, vx_enum attribute, voi
                     status = VX_ERROR_INVALID_PARAMETERS;
                 }
                 break;
-            case VX_NODE_OUTPUT_TILE_BLOCK_SIZE:
+            case VX_NODE_ATTRIBUTE_OUTPUT_TILE_BLOCK_SIZE:
                 if (VX_CHECK_PARAM(ptr, size, vx_tile_block_size_t, 0x3))
                 {
                     memcpy(ptr, &node->kernel->attributes.blockinfo, size);
@@ -218,7 +218,7 @@ VX_API_ENTRY vx_status VX_API_CALL vxQueryNode(vx_node n, vx_enum attribute, voi
                     status = VX_ERROR_INVALID_PARAMETERS;
                 }
                 break;
-            case VX_NODE_TILE_MEMORY_SIZE:
+            case VX_NODE_ATTRIBUTE_TILE_MEMORY_SIZE:
                 if (VX_CHECK_PARAM(ptr, size, vx_size, 0x3))
                 {
                     *(vx_size *)ptr = node->attributes.tileDataSize;
@@ -228,7 +228,7 @@ VX_API_ENTRY vx_status VX_API_CALL vxQueryNode(vx_node n, vx_enum attribute, voi
                     status = VX_ERROR_INVALID_PARAMETERS;
                 }
                 break;
-            case VX_NODE_TILE_MEMORY_PTR:
+            case VX_NODE_ATTRIBUTE_TILE_MEMORY_PTR:
                 if (VX_CHECK_PARAM(ptr, size, vx_ptr_t, 0x3))
                 {
                     *(vx_ptr_t *)ptr = node->attributes.tileDataPtr;

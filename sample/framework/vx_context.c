@@ -889,6 +889,8 @@ VX_API_ENTRY vx_status VX_API_CALL vxQueryContext(vx_context context, vx_enum at
                     status = VX_ERROR_INVALID_PARAMETERS;
                 }
                 break;
+
+#if !defined(EXPERIMENTAL_USE_TARGET)
             case VX_CONTEXT_IMMEDIATE_BORDER_POLICY:
                 if (VX_CHECK_PARAM(ptr, size, vx_enum, 0x3))
                 {
@@ -899,6 +901,7 @@ VX_API_ENTRY vx_status VX_API_CALL vxQueryContext(vx_context context, vx_enum at
                     status = VX_ERROR_INVALID_PARAMETERS;
                 }
                 break;
+#endif
             case VX_CONTEXT_UNIQUE_KERNELS:
                 if (VX_CHECK_PARAM(ptr, size, vx_uint32, 0x3))
                 {

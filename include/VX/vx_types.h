@@ -29,13 +29,15 @@
 #ifndef _OPENVX_TYPES_H_
 #define _OPENVX_TYPES_H_
 
+#pragma OPENCL EXTENSION cl_khr_fp64 : enable
+
 /*!
  * \file vx_types.h
  * \brief The type definitions required by OpenVX Library.
  */
 
 #include <stdint.h>
-#include <stddef.h>
+//#include <stddef.h>
 #include <string.h>
 
 /*!

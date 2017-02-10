@@ -179,8 +179,10 @@ VX_API_ENTRY vx_kernel VX_API_CALL vxAddOpenCLAsBinaryKernel(vx_context context,
  * \param stride The stride in bytes between two adjacent elements.
  * \ingroup group_cl_array
  */
-#define vxArrayItem(type, ptr, index, stride) \
-    (*(type *)(&((uchar *)ptr)[index*stride]))
+
+// defined in vx_api.h
+//#define vxArrayItem(type, ptr, index, stride) \
+//    (*(type *)(&((uchar *)ptr)[index*stride]))
 
 /*! \brief Allows access to a matrix element \f$ M_{ij} \f$ where i is the column and j is the row.
  * \param type The OpenCL single element type of the matrix.

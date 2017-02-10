@@ -865,7 +865,7 @@ VX_API_ENTRY vx_status VX_API_CALL vxQueryKernel(vx_kernel kern, vx_enum attribu
                 break;
 #endif
 #ifdef OPENVX_KHR_TILING
-            case VX_KERNEL_INPUT_NEIGHBORHOOD:
+            case VX_KERNEL_ATTRIBUTE_INPUT_NEIGHBORHOOD:
                 if (VX_CHECK_PARAM(ptr, size, vx_neighborhood_size_t, 0x3))
                 {
                     memcpy(ptr, &kernel->attributes.nhbdinfo, size);
@@ -876,7 +876,7 @@ VX_API_ENTRY vx_status VX_API_CALL vxQueryKernel(vx_kernel kern, vx_enum attribu
                 }
                 break;
 
-            case VX_KERNEL_OUTPUT_TILE_BLOCK_SIZE:
+            case VX_KERNEL_ATTRIBUTE_OUTPUT_TILE_BLOCK_SIZE:
                 if (VX_CHECK_PARAM(ptr, size, vx_tile_block_size_t, 0x3))
                 {
                     memcpy(ptr, &kernel->attributes.blockinfo, size);
@@ -1093,7 +1093,7 @@ VX_API_ENTRY vx_status VX_API_CALL vxSetKernelAttribute(vx_kernel k, vx_enum att
             break;
 #endif
 #ifdef OPENVX_KHR_TILING
-        case VX_KERNEL_INPUT_NEIGHBORHOOD:
+        case VX_KERNEL_ATTRIBUTE_INPUT_NEIGHBORHOOD:
             if (VX_CHECK_PARAM(ptr, size, vx_neighborhood_size_t, 0x3))
             {
                 memcpy(&kernel->attributes.nhbdinfo, ptr, size);
@@ -1103,7 +1103,7 @@ VX_API_ENTRY vx_status VX_API_CALL vxSetKernelAttribute(vx_kernel k, vx_enum att
                 status = VX_ERROR_INVALID_PARAMETERS;
             }
             break;
-        case VX_KERNEL_OUTPUT_TILE_BLOCK_SIZE:
+        case VX_KERNEL_ATTRIBUTE_OUTPUT_TILE_BLOCK_SIZE:
             if (VX_CHECK_PARAM(ptr, size, vx_tile_block_size_t, 0x3))
             {
                 memcpy(&kernel->attributes.blockinfo, ptr, size);
@@ -1113,7 +1113,7 @@ VX_API_ENTRY vx_status VX_API_CALL vxSetKernelAttribute(vx_kernel k, vx_enum att
                 status = VX_ERROR_INVALID_PARAMETERS;
             }
             break;
-        case VX_KERNEL_BORDER:
+        case VX_KERNEL_ATTRIBUTE_BORDER:
             if (VX_CHECK_PARAM(ptr, size, vx_border_t, 0x3))
             {
                 vx_border_t *border = (vx_border_t *)ptr;

@@ -38,9 +38,20 @@ if (CYGWIN)
     set( OPENVX_BUILDING_EXPORT_DEF -DVX_API_ENTRY=__attribute__\(\(dllexport\)\) )
 endif (CYGWIN)
 
+set(BUILD_X64 "" CACHE STRING "whether to perform 64-bit build: ON or OFF overrides default detection")
+
+# Unless user specifies BUILD_X64 explicitly, assume native target
+if (BUILD_X64 STREQUAL "")
+  set(BUILD_X64 "TRUE")
+ else()
+  set(BUILD_X64 "FALSE")
+endif()
+
 if(BUILD_X64)
   set(ARCH_BIT -m64 )
+  message("Building 64-bit ...")
 else()
+  message("Building 32-bit ...")
   if (TARGET_CPU STREQUAL "Atom")
     # architecture will be according to ATOM
     set(ARCH_BIT -m32 )
@@ -121,4 +132,3 @@ message(STATUS "")
 message(STATUS "CMAKE_EXE_LINKER_FLAGS  = ${CMAKE_EXE_LINKER_FLAGS}")
 message(STATUS "")
 message(STATUS "CMAKE_BUILD_TOOL        = ${CMAKE_BUILD_TOOL}")
-

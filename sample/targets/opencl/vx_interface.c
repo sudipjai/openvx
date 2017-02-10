@@ -43,13 +43,13 @@
 static const vx_char name[VX_MAX_TARGET_NAME] = "pc.opencl";
 
 /*! \brief Prototype for assigning to kernel */
-static vx_status vxclCallOpenCLKernel(vx_node node, const vx_reference *parameters, vx_uint32 num);
+//static vx_status vxclCallOpenCLKernel(vx_node node, const vx_reference *parameters, vx_uint32 num);
+static vx_status vxclCallOpenCLKernel(vx_node node, vx_reference parameters[], vx_uint32 num);
 
 static vx_cl_kernel_description_t *cl_kernels[] =
 {
     &box3x3_clkernel,
     &gaussian3x3_clkernel,
-    &lut_clkernel,
     &and_kernel,
     &xor_kernel,
     &orr_kernel,
@@ -91,7 +91,7 @@ vx_status vxTargetInit(vx_target_t *target)
 #if defined(VX_INCLUDE_DIR)
     "-I "VX_INCLUDE_DIR" "
 #else
-    " "
+    "-I /usr/lib/llvm-3.4/lib/clang/3.4/include/"
 #endif
     );
 
@@ -110,7 +110,8 @@ vx_status vxTargetInit(vx_target_t *target)
     target->priority = VX_TARGET_PRIORITY_OPENCL;
 
     context->num_platforms = CL_MAX_PLATFORMS;
-    err = clGetPlatformIDs(CL_MAX_PLATFORMS, context->platforms, NULL);
+    cl_uint numPlatforms;
+    err = clGetPlatformIDs(CL_MAX_PLATFORMS, context->platforms, &numPlatforms);
     if (err != CL_SUCCESS)
         goto exit;
 
@@ -323,6 +324,7 @@ vx_status vxTargetInit(vx_target_t *target)
                                     cl_kernels[k]->description.name,
                                     cl_kernels[k]->description.parameters,
                                     cl_kernels[k]->description.numParams,
+                                    cl_kernels[k]->description.validate,
                                     cl_kernels[k]->description.input_validate,
                                     cl_kernels[k]->description.output_validate,
                                     cl_kernels[k]->description.initialize,
@@ -458,6 +460,7 @@ vx_kernel vxTargetAddKernel(vx_target_t *target,
                             vx_enum enumeration,
                             vx_kernel_f func_ptr,
                             vx_uint32 numParams,
+                            vx_kernel_validate_f validate,
                             vx_kernel_input_validate_f input,
                             vx_kernel_output_validate_f output,
                             vx_kernel_initialize_f initialize,
@@ -474,7 +477,7 @@ vx_kernel vxTargetAddKernel(vx_target_t *target,
                                kernel,
                                enumeration, func_ptr, name,
                                NULL, numParams,
-                               input, output, initialize, deinitialize);
+                               validate, input, output, initialize, deinitialize);
             VX_PRINT(VX_ZONE_KERNEL, "Reserving %s Kernel[%u] for %s\n", target->name, k, kernel->name);
             target->num_kernels++;
             break;

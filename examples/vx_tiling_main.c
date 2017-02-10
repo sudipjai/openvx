@@ -77,12 +77,12 @@ vx_node vxTilingBoxNode(vx_graph graph, vx_image in, vx_image out, vx_uint32 wid
     if (node && (width&1) && (height&1))
     {
         vx_neighborhood_size_t nbhd;
-        vxQueryNode(node, VX_NODE_INPUT_NEIGHBORHOOD, &nbhd, sizeof(nbhd));
+        vxQueryNode(node, VX_NODE_ATTRIBUTE_INPUT_NEIGHBORHOOD, &nbhd, sizeof(nbhd));
         nbhd.left = 0 - ((width - 1)/2);
         nbhd.right = ((width - 1)/2);
         nbhd.top = 0 - ((height - 1)/2);
         nbhd.bottom = ((height - 1)/2);
-        vxSetNodeAttribute(node, VX_NODE_INPUT_NEIGHBORHOOD, &nbhd, sizeof(nbhd));
+        vxSetNodeAttribute(node, VX_NODE_ATTRIBUTE_INPUT_NEIGHBORHOOD, &nbhd, sizeof(nbhd));
     }
     return node;
 }
